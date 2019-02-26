@@ -1,7 +1,7 @@
 #!/bin/bash
 
 COINNAME="kyf"
-COINPATH="kryptofrancore"
+COINPATH="kryptofranccore"
 
 # Reset
 Color_Off='\033[0m'       # Text Reset
@@ -27,7 +27,7 @@ BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
 echo "--------------------------------------------------------------"
-echo -e "$BCyan kryptofranc Maker: version 1.0"
+echo -e "$BCyan Bitcoin Clone Maker: version 1.1"
 echo -e "$BBlue maker unix/win64/win32/mac"
 echo -e "$BGreen  win       compile for Windows os "
 echo -e "  unix      compile for Unix (default)"
@@ -89,6 +89,8 @@ $MOD="-u"
 echo -e "$BYellow --------------------------------------------------"
 echo " *** EXECUTING SCRIPT WITH OPTIONS ***"
 echo
+echo "Coin name=$COINNAME"
+echo "Coin path=$COINPATH"
 echo "OS option $OS"
 echo "INSTALL option $INSTALL"
 echo "ALL option $ALL"
@@ -121,11 +123,11 @@ if [ $OS = "unix" ]; then
     make
     cd ..
 	echo -e "$BYellow --------------------------------------------------"
-	echo -e "$BGreen PACKAGING will install all in binaries folder"
+	echo -e "$BGreen PACKAGING will install all Unix exe in binaries folder"
 	echo -e $Color_Off
 	
-	sudo mkdir binaries
-	sudo mkdir binaries/unix
+	sudo mkdir -p binaries
+	sudo mkdir -p binaries/unix
 	sudo mv $COINPATH/src/qt/bitcoin-qt $COINPATH/src/qt/$COINNAME-qt
 	
 	# this is for desktop icon, you have to make your own one.
@@ -134,7 +136,7 @@ if [ $OS = "unix" ]; then
 	sudo cp assets/$COINNAME-qt.desktop binaries/unix/$COINNAME-qt.desktop
 	# end of desktop icon 
 	
-	sudo cp $COINPATH/src/$COINNAMEd binaries/unix/$COINNAMEd	
+	sudo cp "$COINPATH/src/$COINNAME""d" "binaries/unix/$COINNAME""d"
 	sudo cp $COINPATH/src/$COINNAME-tx binaries/unix/$COINNAME-tx
 	sudo cp $COINPATH/src/$COINNAME-cli binaries/unix/$COINNAME-cli
 	sudo cp $COINPATH/src/qt/$COINNAME-qt binaries/unix/$COINNAME-qt
@@ -171,27 +173,22 @@ if [ $OS = "win64" ]; then
 		cd ..
 	fi
 	echo -e "$BYellow --------------------------------------------------"
-	echo -e "$BGreen PACKAGING will install all in d:/kryptofranc"
+	echo -e "$BGreen PACKAGING will install all win64 exed in $COINPATH"
 	echo -e $Color_Off
 	cd kryptofranccore
 	# option -i or it will stop compiling
 	make install DESTDIR=/binaries/win64/ -i
-    cd ..
-	echo -e "$BYellow --------------------------------------------------"
-	echo -e "$BGreen PACKAGING will install all in binaries folder"
-	echo -e $Color_Off
-	sudo mkdir binaries
-	sudo mkdir binaries/win64
-	sudo mv '$COINPATH/src/qt/bitcoin-qt.exe' '$COINPATH/src/$COINNAME-qt.exe'
-	sudo cp '$COINPATH/src/$COINNAMEd.exe' 'binaries/win64/$COINNAMEd.exe'
-	sudo cp '$COINPATH/src/$COINNAME-tx.exe' 'binaries/win64/$COINNAME-tx.exe'
-	sudo cp '$COINPATH/src/$COINNAME-cli.exe' 'binaries/win64/$COINNAME-cli.exe'
-	sudo cp '$COINPATH/src/qt/$COINNAME-qt.exe' 'binaries/win64/$COINNAME-qt.exe'
+    cd ..	
+	sudo mkdir -p binaries
+	sudo mkdir -p binaries/win64
+	sudo cp "$COINPATH/src/$COINNAME""d".exe "binaries/win64/$COINNAME""d".exe
+	sudo cp $COINPATH/src/$COINNAME-tx.exe binaries/win64/$COINNAME-tx.exe
+	sudo cp $COINPATH/src/$COINNAME-cli.exe binaries/win64/$COINNAME-cli.exe
+	sudo cp $COINPATH/src/qt/$COINNAME-qt.exe binaries/win64/$COINNAME-qt.exe
 	
 	
 	cd ..
 fi
-
 
 
 
