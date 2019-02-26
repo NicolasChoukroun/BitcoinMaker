@@ -46,7 +46,7 @@ For Windows 64 bits
 ./maker.sh unix all
 ```
 
-*** AFter the install only do ***
+*** After the install only do ***
 ```
 Unix: 
 ./maker.sh unix
@@ -55,7 +55,7 @@ Windows 64
 
 ```
 
-The results should bin in Yourcoin/binaries/unix/ or Yourcoin/binaries/win64/ 
+The results should be in Yourcoin/binaries/unix/ or Yourcoin/binaries/win64/ 
 
 
 
