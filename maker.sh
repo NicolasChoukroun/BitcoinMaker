@@ -31,7 +31,7 @@ BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
 echo "--------------------------------------------------------------"
-echo -e "$BCyan Bitcoin/Altcoin compiler helper: version 1.3"
+echo -e "$BCyan Bitcoin/Altcoin compiler helper: version 1.4"
 echo -e "$BBlue maker unix/win64"
 echo -e "$BGreen  win       compile for Windows os "
 echo -e "  unix      compile for Unix (default)"
@@ -44,6 +44,8 @@ echo "  ->will compile for unix"
 echo "--------------------------------------------------------------"
 echo -e $Color_Off
 
+# force recompile of the version
+rm kryptofranccore/src/libbitcoin_util_a-clientversion.o  
 
 # initialize the internal variables
 OS="unix"
@@ -74,7 +76,14 @@ while [ "$1" != "" ]; do
         ;;
 		unix)
 			OS="unix"
+	    ;;		
+		mac)
+			OS="osx"
 	    ;;
+		osx)
+			OS="osx"
+	    ;;
+
 	    win64)
 	    	OS="win64"
 	    ;;
@@ -98,6 +107,35 @@ echo "INSTALL option $INSTALL"
 echo "ALL option $ALL"
 echo "--------------------------------------------------"
 echo -e $Color_Off
+
+if [ $OS = "osx" ]; then
+
+	if [ $INSTALL = "yes" ]; then
+		brew install automake berkeley-db4 libtool boost miniupnpc openssl pkg-config protobuf python qt libevent qrencode
+		brew install librsvg
+    fi
+    if [ $ALL = "yes" ]; then
+        cd $COINPATH
+        ./autogen.sh
+        ./configure --disable-tests --disable-bench
+        cd ..
+    fi
+        cd $COINPATH
+	make deploy -i
+	cd ..
+	echo -e "$BYellow --------------------------------------------------"
+	echo -e "$BGreen PACKAGING will install the DMG in binaries folder"
+	echo -e $Color_Off
+
+	sudo mkdir -p binaries
+	sudo mkdir -p binaries/osx
+
+	sudo cp -rf $COINPATH/$COINNAME-Qt.dmg binaries/osx/$COINNAME-Qt.dmg
+	sudo cp -rf $COINPATH/src/$COINNAME-tx binaries/osx/$COINNAME-tx
+	sudo cp -rf $COINPATH/src/$COINNAME-wallet binaries/osx/$COINNAME-wallet
+	sudo cp -rf $COINPATH/src/$COINNAME-cli binaries/osx/$COINNAME-cli
+	#sudo cp -rf "$COINPATH/src/$COINNAME""d" "binaries/osx/$COINNAME""d"	
+fi
 
 
 if [ $OS = "unix" ]; then
