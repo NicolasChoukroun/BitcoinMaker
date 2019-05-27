@@ -63,6 +63,13 @@ MAC
 
 The results should be in Yourcoin/binaries/unix/ or Yourcoin/binaries/win64/ or Yourcoin/binaries/osx/
 
+*** more options ***
+```
+doc : will generate the doxyfile documentation
+deploy : will generate the setup.exe and the .dmg for MAC
+
+exemple: ./maker.sh osx doc deploy 
+will generate for mac with the documentation and the pack all in the dmg install file.
 
 
 
