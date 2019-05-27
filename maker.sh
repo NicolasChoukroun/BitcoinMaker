@@ -64,6 +64,9 @@ fi
 
 ALL="no"
 INSTALL="no"
+DOC=""
+DEPLOY=""
+
 
 # loop through all the options and set the corresponding variables
 while [ "$1" != "" ]; do
@@ -90,6 +93,12 @@ while [ "$1" != "" ]; do
 	    win32)
 	    	OS="win32"
 	    ;;
+	    doc)
+	    	DOC=" --enable-man "
+	    ;;
+	    deploy)
+	    	DEPLOY=" deploy "
+	    ;;	    
 	    help)
 	    	exit
 	    ;;
@@ -117,7 +126,7 @@ if [ $OS = "osx" ]; then
     if [ $ALL = "yes" ]; then
         cd $COINPATH
         ./autogen.sh
-        ./configure --disable-tests --disable-bench --disable-gui-tests
+        ./configure --disable-tests --disable-bench --disable-gui-tests $DOC $DEPLOY
         cd ..
     fi
         cd $COINPATH
@@ -156,7 +165,7 @@ if [ $OS = "unix" ]; then
     if [ $ALL = "yes" ]; then
         cd $COINPATH
         ./autogen.sh
-        ./configure --disable-tests --disable-bench --disable-gui-tests
+        ./configure --disable-tests --disable-bench --disable-gui-tests $DOC $DEPLOY
         cd ..
     fi
         cd $COINPATH
@@ -219,7 +228,7 @@ if [ $OS = "win64" ]; then
     	if [ $ALL = "yes" ]; then
         	cd $COINPATH
 		sudo ./autogen.sh
-		sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/ --disable-tests --disable-bench --disable-gui-tests
+		sudo CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/ --disable-tests --disable-bench --disable-gui-tests $DOC $DEPLOY
 		cd ..
 	fi
 
