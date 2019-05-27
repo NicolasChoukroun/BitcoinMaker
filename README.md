@@ -44,6 +44,10 @@ For Unix
 For Windows 64 bits
 ./maker.sh win64 install
 ./maker.sh unix all
+
+For MAC
+./maker.sh osx install
+./maker.sh osx all
 ```
 
 *** After the install only do ***
@@ -52,10 +56,12 @@ Unix:
 ./maker.sh unix
 Windows 64
 ./maker.sh win64
+MAC
+./maker.sh osx
 
 ```
 
-The results should be in Yourcoin/binaries/unix/ or Yourcoin/binaries/win64/ 
+The results should be in Yourcoin/binaries/unix/ or Yourcoin/binaries/win64/ or Yourcoin/binaries/osx/
 
 
 
